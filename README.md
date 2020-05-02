@@ -1,5 +1,4 @@
-@ryaninvents/changeset-run
-==========================
+# @ryaninvents/changeset-run
 
 Use custom publish scripts for packages in Atlassian Changesets, perfect for non-npm artifacts
 
@@ -10,11 +9,15 @@ Use custom publish scripts for packages in Atlassian Changesets, perfect for non
 [![License](https://img.shields.io/npm/l/@ryaninvents/changeset-run.svg)](https://github.com/ryaninvents/changeset-run/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @ryaninvents/changeset-run
 $ changeset-run COMMAND
@@ -26,11 +29,16 @@ USAGE
   $ changeset-run COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`changeset-run hello [FILE]`](#changeset-run-hello-file)
-* [`changeset-run help [COMMAND]`](#changeset-run-help-command)
+
+- [`changeset-run hello [FILE]`](#changeset-run-hello-file)
+- [`changeset-run help [COMMAND]`](#changeset-run-help-command)
+- [`changeset-run preversion [FILE]`](#changeset-run-preversion)
 
 ## `changeset-run hello [FILE]`
 
@@ -68,4 +76,25 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `changeset-run preversion`
+
+Cache planned publish steps before running `changeset version`
+
+```
+USAGE
+  $ changeset-run preversion
+
+OPTIONS
+  -p, --planfile=./.changeset/.release-plan.json  temporary file to write to; must be in .gitignore
+  -h, --help                                      show CLI help
+```
+
+_See code: [src/commands/preversion.ts](https://github.com/ryaninvents/changeset-run/blob/master/src/commands/preversion.ts)_
+
+  -h, --help       show CLI help
+```
+
+_See code: [src/commands/preversion.ts](https://github.com/ryaninvents/changeset-run/blob/master/src/commands/preversion.ts)_
+
 <!-- commandsstop -->
