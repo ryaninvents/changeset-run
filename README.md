@@ -38,7 +38,7 @@ USAGE
 
 Here's the config file format. Comments here are only for illustration; if you add comments to your config file it will break.
 
-```json
+```jsonc
 {
   "packageOptions": {
     // Keyed on the name of the package. If a package is not listed, ordinary `npm publish` will apply.
