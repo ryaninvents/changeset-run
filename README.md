@@ -10,7 +10,9 @@ Use custom publish scripts for packages in Atlassian Changesets, perfect for non
 
 <!-- toc -->
 
+- [@ryaninvents/changeset-run](#ryaninventschangeset-run)
 - [Usage](#usage)
+- [Config](#config)
 - [Commands](#commands)
   <!-- tocstop -->
 
@@ -32,13 +34,49 @@ USAGE
 
 <!-- usagestop -->
 
+# Config
+
+Here's the config file format. Comments here are only for illustration; if you add comments to your config file it will break.
+
+```json
+{
+  "packageOptions": {
+    // Keyed on the name of the package. If a package is not listed, ordinary `npm publish` will apply.
+    "@my-scope/docker-package": {
+      "steps": [
+        {
+          // The command to run
+          "command": "docker",
+          // Array of arguments to the command.
+          "args": [
+            // Ordinary string argument
+            "build",
+            "-t",
+            // Array argument. Values are concatenated together; objects with a "$" key represent a
+            // variable to look up in the release plan. Possible values are `newVersion`, `oldVersion`,
+            // `releaseType`, and `packageName`
+            ["my-scope/image-name:", { "$": "newVersion" }],
+            "."
+          ]
+        },
+        {
+          "command": "docker",
+          "args": ["push"]
+        }
+      ]
+    }
+  }
+}
+```
+
 # Commands
 
 <!-- commands -->
 
 - [`changeset-run hello [FILE]`](#changeset-run-hello-file)
 - [`changeset-run help [COMMAND]`](#changeset-run-help-command)
-- [`changeset-run preversion [FILE]`](#changeset-run-preversion)
+- [`changeset-run preversion`](#changeset-run-preversion)
+- [`changeset-run publish`](#changeset-run-publish)
 
 ## `changeset-run hello [FILE]`
 
@@ -86,15 +124,36 @@ USAGE
   $ changeset-run preversion
 
 OPTIONS
-  -p, --planfile=./.changeset/.release-plan.json  temporary file to write to; must be in .gitignore
-  -h, --help                                      show CLI help
+  -h, --help               show CLI help
+
+  -p, --planfile=planfile  [default: ./.changeset/.release-plan.json] release plan file to write to; must be in
+                           .gitignore
 ```
 
 _See code: [src/commands/preversion.ts](https://github.com/ryaninvents/changeset-run/blob/master/src/commands/preversion.ts)_
 
-  -h, --help       show CLI help
+## `changeset-run publish`
+
+Run custom publish command for one or more packages in this project.
+
+```
+USAGE
+  $ changeset-run publish
+
+OPTIONS
+  -c, --config=config      [default: ./.changeset/changeset-run.config.json] Path to alternate changeset-run config file
+  -h, --help               show CLI help
+
+  -p, --planfile=planfile  [default: ./.changeset/.release-plan.json] release plan file to write to; must be in
+                           .gitignore
+
+  --exclude=exclude        [default: ] Individual package name to prevent publish. May be specified multiple times;
+                           processed after --include
+
+  --include=include        [default: ] Individual package name to publish. May be specified multiple times; processed
+                           before --exclude
 ```
 
-_See code: [src/commands/preversion.ts](https://github.com/ryaninvents/changeset-run/blob/master/src/commands/preversion.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ryaninvents/changeset-run/blob/master/src/commands/publish.ts)_
 
 <!-- commandsstop -->

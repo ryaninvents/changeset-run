@@ -2,8 +2,10 @@ import { Command, flags } from '@oclif/command';
 import * as execa from 'execa';
 import * as hasYarn from 'has-yarn';
 import * as chalk from 'chalk';
-
-const DEFAULT_PLANFILE = './.changeset/.release-plan.json';
+import {
+  DEFAULT_PLANFILE,
+  planfile as planfileFlag,
+} from '../util/common-flags';
 
 export default class Preversion extends Command {
   static description =
@@ -11,11 +13,7 @@ export default class Preversion extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    planfile: flags.string({
-      char: 'p',
-      description: 'release plan file to write to; must be in .gitignore',
-      default: DEFAULT_PLANFILE,
-    }),
+    planfile: planfileFlag,
   };
 
   async run() {
