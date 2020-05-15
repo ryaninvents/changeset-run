@@ -73,30 +73,9 @@ Here's the config file format. Comments here are only for illustration; if you a
 
 <!-- commands -->
 
-- [`changeset-run hello [FILE]`](#changeset-run-hello-file)
 - [`changeset-run help [COMMAND]`](#changeset-run-help-command)
 - [`changeset-run preversion`](#changeset-run-preversion)
 - [`changeset-run publish`](#changeset-run-publish)
-
-## `changeset-run hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ changeset-run hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ changeset-run hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/ryaninvents/changeset-run/blob/v0.0.0/src/commands/hello.ts)_
 
 ## `changeset-run help [COMMAND]`
 
