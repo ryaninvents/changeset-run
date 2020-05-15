@@ -27,6 +27,7 @@ jobs:
       - run:
           name: Publish
           command: $(npm bin)/changeset publish
+      - run: git push --follow-tags
   cache:
     docker:
       - image: node:12
