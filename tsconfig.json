@@ -5,10 +5,8 @@
     "module": "commonjs",
     "outDir": "lib",
     "rootDir": "src",
-    "strict": true,
+    "strict": false,
     "target": "es2017"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
