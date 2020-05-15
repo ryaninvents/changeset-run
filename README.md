@@ -18,21 +18,35 @@ Use custom publish scripts for packages in Atlassian Changesets, perfect for non
 
 # Usage
 
-<!-- usage -->
+Workflow based on [this GitHub comment](https://github.com/atlassian/changesets/issues/310#issuecomment-622140214).
+
+Install:
 
 ```sh-session
 $ npm install -g @ryaninvents/changeset-run
-$ changeset-run COMMAND
-running command...
-$ changeset-run (-v|--version|version)
-@ryaninvents/changeset-run/0.0.0 linux-x64 node-v12.16.1
-$ changeset-run --help [COMMAND]
-USAGE
-  $ changeset-run COMMAND
-...
 ```
 
-<!-- usagestop -->
+**Make sure** that you have a line `/.changeset/.release-plan.json` in your `.gitignore` file.
+
+Update your CI setup to run something like this:
+
+```bash
+# Create the release-plan file
+$(npm bin)/changeset-run preversion
+
+# Update the version(s) of your package(s)
+$(npm bin)/changeset version
+
+# Your typical build steps go here; for example:
+npm run build
+npm test
+
+# Run your publish step for each package, as defined in `/.changeset/changeset-run.config.json`
+$(npm bin)/changeset-run publish
+
+# Push your Git tags back to the repo
+git push --follow-tags
+```
 
 # Config
 
