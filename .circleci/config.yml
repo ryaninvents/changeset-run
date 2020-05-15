@@ -1,13 +1,13 @@
 ---
 version: 2
 jobs:
-  node-latest: &test
+  node-12:
     docker:
-      - image: node:latest
+      - image: node:12
     working_directory: ~/cli
     steps:
       - checkout
-      - restore_cache: &restore_cache
+      - restore_cache:
           keys:
             - v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
             - v1-npm-{{checksum ".circleci/config.yml"}}
@@ -16,19 +16,18 @@ jobs:
           command: yarn
       - run: ./bin/run --version
       - run: ./bin/run --help
+      - run: $(npm bin)/changeset version
+      - run: yarn pack
       - run:
           name: Testing
           command: yarn test
-  node-12:
-    <<: *test
+      - run:
+          name: Publish
+          command: $(npm bin)/changeset publish
+  cache:
     docker:
       - image: node:12
-  node-10:
-    <<: *test
-    docker:
-      - image: node:10
-  cache:
-    <<: *test
+    working_directory: ~/cli
     steps:
       - checkout
       - run:
@@ -43,11 +42,10 @@ jobs:
 
 workflows:
   version: 2
-  "@ryaninvents/changeset-run":
+  '@ryaninvents/changeset-run':
     jobs:
-      - node-latest
-      - node-12
-      - node-10
+      - node-12:
+          context: gh-npm-public
       - cache:
           filters:
             tags:

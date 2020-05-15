@@ -7,3 +7,5 @@
 /tmp
 node_modules
 .changeset/.release-plan.json
+/*.tgz
+/oclif.manifest.json
