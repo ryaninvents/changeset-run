@@ -60,6 +60,12 @@ describe('publish', () => {
       } as Config)
     );
     await execa('git', ['init'], { cwd: projectDir.name });
+    await execa.command('git config user.name CI-User', {
+      cwd: projectDir.name,
+    });
+    await execa.command('git config user.email test@ci.example', {
+      cwd: projectDir.name,
+    });
     await execa('git', ['add', '-A', '.'], { cwd: projectDir.name });
     await execa('git', ['commit', '-m', 'Initial commit'], {
       cwd: projectDir.name,
