@@ -1,7 +1,7 @@
 {
   "name": "@ryaninvents/changeset-run",
   "description": "Use custom publish scripts for packages in Atlassian Changesets, perfect for non-npm artifacts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Ryan Kennedy",
   "bin": {
     "changeset-run": "./bin/run"
