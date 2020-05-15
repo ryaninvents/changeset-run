@@ -11,6 +11,8 @@ jobs:
           keys:
             - v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
             - v1-npm-{{checksum ".circleci/config.yml"}}
+      - run: git config user.email 'circleci@ci.local'
+      - run: git config user.name 'CircleCI'
       - run:
           name: Install dependencies
           command: yarn
@@ -24,6 +26,9 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - add_ssh_keys:
+          fingerprints:
+            - '07:b2:80:43:fe:a6:08:d1:72:cb:64:5d:ba:b6:b5:7c'
       - run:
           name: Publish
           command: $(npm bin)/changeset publish
