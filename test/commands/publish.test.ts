@@ -78,5 +78,7 @@ describe('publish', () => {
     expect(result.stdout)
       .to.include('Published version:')
       .and.to.include('1.2.3');
+    const gitTags = await execa('git', ['tag', '-l'], { cwd: projectDir.name });
+    expect(gitTags.stdout).to.include('@my-org/my-pkg@1.2.3');
   });
 });
